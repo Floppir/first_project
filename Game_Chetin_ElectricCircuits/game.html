@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электрические схемы — Игра</title>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="game-page">
+    <div class="game-container">
+        <p class="top-nav"><a href="../index.html" class="link-home">← На главную</a></p>
+        <header class="game-header" id="gameHeader">
+            <span class="player-name">—</span>
+            <span class="score-box">Очки: 0</span>
+            <span class="timer-box">Время: —</span>
+            <span class="level-badge">Уровень 1</span>
+        </header>
+        <section class="level-screen">
+            <div id="levelContainer">Загрузка…</div>
+        </section>
+        <div class="game-actions">
+            <button type="button" class="btn btn-primary" id="btnEndGame">Завершить игру</button>
+        </div>
+    </div>
+
+    <button class="palette-toggle" id="paletteToggle" title="Сменить палитру">🎨</button>
+
+    <script src="js/storage.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/game.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(location.search);
+            const name = params.get('name') || localStorage.getItem('Game_ElectricCircuits_name') || 'Игрок';
+            const startLevel = Math.min(3, Math.max(1, parseInt(params.get('level') || '1', 10)));
+            document.getElementById('btnEndGame').addEventListener('click', function () {
+                var state = window.GameState;
+                if (state && state.timerId) clearInterval(state.timerId);
+                if (state && typeof window.saveResult === 'function') {
+                    window.saveResult(state.playerName, state.score, state.level, 180 - state.timeLeft);
+                }
+                location.href = 'rating.html?name=' + encodeURIComponent(state ? state.playerName : name) +
+                    '&score=' + (state ? state.score : 0) + '&level=' + (state ? state.level : 1) + '&time=' + (state ? (180 - state.timeLeft) : 0);
+            });
+            document.getElementById('paletteToggle').addEventListener('click', function () {
+                document.body.classList.toggle('palette-alt');
+            });
+            window.startGame(name, startLevel);
+        })();
+    </script>
+</body>
+</html>

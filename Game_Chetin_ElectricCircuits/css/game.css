@@ -1,0 +1,405 @@
+/* Игровое приложение "Электрические схемы" */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --game-bg: #1a1a2e;
+    --game-card: #16213e;
+    --game-accent: #e94560;
+    --game-success: #0f3460;
+    --game-text: #eaeaea;
+    --game-wire: #ffc107;
+}
+
+body.game-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--game-bg);
+    color: var(--game-text);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Заставка */
+.welcome-screen {
+    text-align: center;
+    padding: 40px 20px;
+}
+.welcome-screen h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--game-wire);
+}
+.welcome-screen p {
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+.welcome-screen input {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    min-width: 200px;
+    margin: 0 auto 20px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 2px solid var(--game-accent);
+    border-radius: 8px;
+    background: var(--game-card);
+    color: var(--game-text);
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.welcome-screen input::placeholder {
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-nav { margin-bottom: 20px; text-align: left; }
+.top-nav .link-home {
+    color: var(--game-wire);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.top-nav .link-home:hover { text-decoration: underline; }
+.welcome-screen .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    margin: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--game-accent);
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.welcome-screen .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+}
+.welcome-screen .btn-secondary {
+    background: var(--game-success);
+}
+.test-mode {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px dashed #666;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+}
+.test-mode h3 { font-size: 1rem; margin-bottom: 12px; color: #aaa; }
+.test-mode .btn { margin: 4px; padding: 8px 16px; font-size: 0.9rem; }
+
+/* Игровой экран */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: var(--game-card);
+    border-radius: 12px;
+}
+.game-header .player-name { font-weight: bold; color: var(--game-wire); }
+.game-header .score-box { font-size: 1.2rem; }
+.game-header .timer-box { font-size: 1.2rem; color: var(--game-accent); }
+.game-header .level-badge {
+    padding: 6px 14px;
+    background: var(--game-success);
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.level-screen {
+    background: var(--game-card);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    min-height: 320px;
+}
+.level-screen h2 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: var(--game-wire);
+}
+.level-screen .question-text {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.level-screen h2 { word-wrap: break-word; overflow-wrap: break-word; }
+
+/* Уровень 1: карточки, двойной клик + наведение */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.component-card {
+    aspect-ratio: 1;
+    background: var(--game-bg);
+    border: 3px solid #444;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.component-card:hover {
+    border-color: var(--game-wire);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+    transform: scale(1.05);
+}
+.component-card.selected {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, 0.2);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+.component-card .icon { font-size: 2.5rem; margin-bottom: 6px; }
+.component-card .label { font-size: 0.75rem; text-align: center; }
+
+/* Уровень 2: перетаскивание */
+.circuit-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 220px;
+    padding: 20px;
+    background: var(--game-bg);
+    border-radius: 12px;
+    margin-top: 15px;
+}
+.drop-slot {
+    width: 90px;
+    min-width: 90px;
+    height: 90px;
+    border: 3px dashed #555;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    overflow: hidden;
+    padding: 6px;
+    box-sizing: border-box;
+}
+.drop-slot .icon { font-size: 1.6rem; }
+.drop-slot .label, .drop-slot .slot-placeholder {
+    font-size: 0.65rem;
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.drop-slot.drag-over { border-color: var(--game-wire); background: rgba(255,193,7,0.1); }
+.drop-slot.filled { border-style: solid; border-color: #555; }
+.drop-slot.slot-correct { border-color: #4caf50; background: rgba(76, 175, 80, 0.2); }
+.drop-slot.slot-wrong { border-color: #f44336; background: rgba(244, 67, 54, 0.15); }
+
+.level2-order-hint {
+    margin: -8px 0 12px 0;
+    padding: 10px 14px;
+    background: rgba(255, 193, 7, 0.12);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--game-wire);
+}
+.level2-feedback {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    min-height: 2.5em;
+}
+.level2-feedback--success {
+    background: rgba(76, 175, 80, 0.25);
+    border: 1px solid #4caf50;
+    color: #a5d6a7;
+}
+.level2-feedback--error {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid #f44336;
+    color: #ef9a9a;
+}
+.draggable-component {
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    background: var(--game-card);
+    border: 2px solid var(--game-accent);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s;
+    overflow: hidden;
+    padding: 6px;
+    box-sizing: border-box;
+}
+.draggable-component:hover { transform: scale(1.05); }
+.draggable-component.dragging { opacity: 0.6; cursor: grabbing; }
+.draggable-component .icon { font-size: 1.6rem; flex-shrink: 0; }
+.draggable-component .label {
+    font-size: 0.65rem;
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.2;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Уровень 3: клавиши + анимация */
+.falling-zone {
+    position: relative;
+    height: 280px;
+    background: var(--game-bg);
+    border-radius: 12px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+.falling-item {
+    position: absolute;
+    width: 90px;
+    min-width: 90px;
+    padding: 8px 6px;
+    background: var(--game-card);
+    border: 2px solid var(--game-wire);
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: left 0.1s linear, top 0.1s linear;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    word-break: break-word;
+}
+.falling-item .key-num { font-weight: bold; }
+.falling-item .f-name { display: block; overflow: hidden; text-overflow: ellipsis; max-height: 2.6em; }
+.falling-item.shake { animation: shake 0.4s ease infinite; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+.key-hint {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #aaa;
+}
+.key-hint kbd {
+    padding: 4px 8px;
+    background: #444;
+    border-radius: 4px;
+    margin: 0 4px;
+}
+
+/* Кнопки */
+.game-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+.game-actions .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+.game-actions .btn-primary { background: var(--game-accent); color: white; }
+.game-actions .btn-success { background: #4caf50; color: white; }
+.game-actions .btn:hover { transform: translateY(-2px); }
+
+/* Рейтинг */
+.rating-screen {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    text-align: center;
+}
+.rating-screen h1 { margin-bottom: 20px; color: var(--game-wire); }
+.rating-screen .last-result {
+    background: var(--game-card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+.rating-screen table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--game-card);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+.rating-screen th, .rating-screen td {
+    padding: 12px 15px;
+    text-align: left;
+}
+.rating-screen th { background: var(--game-success); }
+.rating-screen tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+.rating-screen .btn { margin-top: 15px; }
+
+/* Палитра (собственное решение) */
+.palette-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--game-wire);
+    background: var(--game-card);
+    color: var(--game-wire);
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 100;
+    transition: transform 0.2s;
+}
+.palette-toggle:hover { transform: scale(1.1); }
+
+body.palette-alt {
+    --game-bg: #0d1b2a;
+    --game-card: #1b263b;
+    --game-accent: #3a86ff;
+    --game-success: #2d6a4f;
+    --game-wire: #83c5be;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электрические схемы — Заставка</title>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="game-page">
+    <div class="game-container">
+        <div class="welcome-screen">
+            <p class="top-nav"><a href="../index.html" class="link-home">← На главную страницу</a></p>
+            <h1>⚡ Электрические схемы</h1>
+            <p>Курсовой проект. Мини-игра по теме электрических цепей.</p>
+            <form id="welcomeForm">
+                <input type="text" id="playerName" placeholder="Введите имя" required maxlength="30" autocomplete="off">
+                <button type="submit" class="btn">Начать игру</button>
+            </form>
+            <p style="margin-top:20px;">
+                <a href="rating.html" class="btn btn-secondary">Рейтинг игроков</a>
+            </p>
+
+            <div class="test-mode" id="testMode" style="display: none;">
+                <h3>Для проверки уровней (без прохождения с начала)</h3>
+                <a href="game.html?name=Тест&level=1&test=1" class="btn">Уровень 1</a>
+                <a href="game.html?name=Тест&level=2&test=1" class="btn">Уровень 2</a>
+                <a href="game.html?name=Тест&level=3&test=1" class="btn">Уровень 3</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="palette-toggle" id="paletteToggle" title="Сменить палитру">🎨</button>
+
+    <script src="js/storage.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(location.search);
+            if (params.get('test') === '1') {
+                document.getElementById('testMode').style.display = 'block';
+            }
+            const last = typeof getLastResult === 'function' ? getLastResult() : null;
+            if (last) {
+                const input = document.getElementById('playerName');
+                input.placeholder = 'Имя (было: ' + (last.name.length > 12 ? last.name.slice(0, 10) + '…' : last.name) + ')';
+            }
+            document.getElementById('welcomeForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const name = document.getElementById('playerName').value.trim() || 'Игрок';
+                localStorage.setItem('Game_ElectricCircuits_name', name);
+                location.href = 'game.html?name=' + encodeURIComponent(name);
+            });
+            document.getElementById('paletteToggle').addEventListener('click', function () {
+                document.body.classList.toggle('palette-alt');
+            });
+        })();
+    </script>
+</body>
+</html>

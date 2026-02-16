@@ -1,0 +1,412 @@
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1 | Flexbox Анимация</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/logo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Короткие стили для простого блока с анимацией */
+        .flexbox-task {
+            padding: 40px 0;
+        }
+
+        .flexbox-demo {
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .flexbox-demo:hover {
+            transform: translateY(-4px);
+        }
+
+        .flexbox-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 200px;
+            /* Размер блока с кастрюлей */
+            height: 200px;
+            /* Высота блока с кастрюлей */
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+                -5px -5px 15px rgba(255, 255, 255, 0.7);
+            padding: 16px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .image-container {
+            position: relative;
+            width: 150px;
+            /* Ширина области с изображениями — можно двигать/масштабировать */
+            height: 150px;
+            /* Высота области с изображениями */
+        }
+
+        .static-dishes {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(30%);
+            transition: opacity 1s ease;
+        }
+
+        .boiling-pot {
+            position: absolute;
+            top: 66px;
+            left: 23px;
+            width: 50%;
+            height: 60%;
+            object-fit: contain;
+            opacity: 0;
+            transform-origin: 50% 100%;
+            animation: none;
+        }
+
+        .lid {
+            position: absolute;
+            top: 34px;
+            left: 32px;
+            width: 35%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transform: translateY(0) rotate(-33deg);
+        }
+
+        /* Анимации при наведении */
+        .flexbox-container:hover .boiling-pot {
+            opacity: 1;
+            animation: boilFade 2.8s ease-in-out infinite;
+        }
+
+        /* Анимации при нажатии */
+        .flexbox-container:active .boiling-pot {
+            opacity: 1;
+            animation: none;
+            transform: scale(1);
+            /* При нажатии кастрюля остаётся в исходном положении и просто показывается */
+        }
+
+        .flexbox-container:active .lid {
+            opacity: 1;
+            animation: lidFlap 0.25s ease-in-out infinite;
+        }
+
+        /* Кастрюля: плавное появление и лёгкое "дыхание" */
+        @keyframes boilFade {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.6);
+            }
+
+            100% {
+                opacity: 0.45;
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes lidFlap {
+            0% {
+                transform: translateY(0) rotate(-33deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(0);
+            }
+
+            100% {
+                transform: translateY(0) rotate(-33deg);
+            }
+
+        }
+
+
+        .instructions {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+        }
+
+        .instruction-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instruction-list li {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .instruction-list li:hover {
+            transform: translateX(10px);
+            background: #e8f4fc;
+        }
+
+        .instruction-list li i {
+            color: #3498db;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-example h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .task-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .task-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9, #1c638e);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-circle"></div>
+                    <div class="logo-orbit"></div>
+                    <div class="logo-satellite"></div>
+                    <span class="logo-text">SpaceResearch</span>
+                </div>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="task1.html" class="active"><i class="fas fa-tasks"></i> Задания</a>
+                            <ul class="submenu">
+                                <li><a href="task1.html" class="active">Задание 1</a></li>
+                                <li><a href="task2.html">Задание 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../coursework.html"><i class="fas fa-graduation-cap"></i> Курсовая</a></li>
+                    </ul>
+                </nav>
+
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="flexbox-task">
+            <div class="flexbox-wrapper">
+                <section class="section flexbox-task">
+                    <h1>Задание 1: Flexbox Анимация</h1>
+
+                    <div class="content-grid">
+                        <div class="text-content">
+                            <h2>Цель задания</h2>
+                            <p>Освоить работу с CSS Flexbox и создание интерактивных анимаций с использованием CSS transitions и keyframes. Задание демонстрирует возможности современного CSS для построения компактных блоков с реакцией на действия пользователя.</p>
+
+                            <h2>Задачи</h2>
+                            <ol>
+                                <li>Создать flexbox-контейнер размером не более 200px.</li>
+                                <li>Разместить три изображения: статичный набор посуды, кипящую кастрюлю и крышку.</li>
+                                <li>При наведении мыши — медленно проявлять кастрюлю с увеличением прозрачности и размера.</li>
+                                <li>При нажатии — анимация хлопающей крышки, пока удерживается нажатие.</li>
+                                <li>Использовать простые CSS-свойства без тяжёлых библиотек.</li>
+                            </ol>
+
+                            <h2>Требования</h2>
+                            <ul>
+                                <li>Использовать <code>display: flex</code> для контейнера и выравнивания элементов.</li>
+                                <li>Применить <code>transition</code> и <code>@keyframes</code> для плавных эффектов.</li>
+                                <li>Позиционирование наложенных картинок через <code>position: absolute</code>.</li>
+                                <li>Настройка <code>transform-origin</code> для корректного масштабирования кастрюли.</li>
+                            </ul>
+
+                            <h2>Интерактивность</h2>
+                            <p>При наведении курсора кастрюля плавно появляется и слегка «дышит» (увеличение и уменьшение масштаба). При удержании клика крышка хлопает — поднимается и опускается с поворотом. В момент нажатия кастрюля остаётся видимой в исходном положении. Размер блока с демонстрацией не превышает 200px по условию задания.</p>
+
+                            <h2>Критерии оценки</h2>
+                            <ul>
+                                <li>Корректное использование Flexbox для размещения и центрирования.</li>
+                                <li>Плавность анимаций и отсутствие рывков при наведении и клике.</li>
+                                <li>Правильное позиционирование всех трёх изображений в одном блоке.</li>
+                                <li>Работоспособность эффектов наведения и удержания кнопки мыши.</li>
+                                <li>Чистота кода и использование только CSS без лишних зависимостей.</li>
+                            </ul>
+                        </div>
+
+                        <div class="image-content">
+                            <div class="flexbox-demo">
+                                <div class="flexbox-container">
+                                    <div class="image-container">
+                                        <img src="../images/ware2.jpg" alt="Набор посуды" class="static-dishes">
+                                        <img src="../images/ware3.png" alt="Кипящая кастрюля" class="boiling-pot">
+                                        <img src="../images/ware4.png" alt="Крышка" class="lid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-actions">
+                        <a href="../index.html" class="btn"><i class="fas fa-arrow-left"></i> На главную</a>
+                        <a href="task2.html" class="btn btn-secondary">Следующее задание <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <div class="logo-circle"></div>
+                        <div class="logo-orbit"></div>
+                        <div class="logo-satellite"></div>
+                        <span class="logo-text">SpaceResearch</span>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p><i class="fas fa-envelope"></i> contact@spaceresearch.com</p>
+                    <p><i class="fas fa-phone"></i> +7 (XXX) XXX-XX-XX</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 SpaceResearch. Все права защищены. | Задание 1: Flexbox Анимация</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+
+            menuToggle.addEventListener('click', function () {
+                nav.classList.toggle('active');
+                this.querySelector('i').classList.toggle('fa-bars');
+                this.querySelector('i').classList.toggle('fa-times');
+            });
+        });
+    </script>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

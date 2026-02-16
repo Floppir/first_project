@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceResearch | Исследование космоса</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-circle"></div>
+                    <div class="logo-orbit"></div>
+                    <div class="logo-satellite"></div>
+                    <span class="logo-text">SpaceResearch</span>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="tasks/task1.html"><i class="fas fa-tasks"></i> Задания</a>
+                            <ul class="submenu">
+                                <li><a href="tasks/task1.html">Задание 1</a></li>
+                                <li><a href="tasks/task2.html">Задание 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="coursework.html"><i class="fas fa-graduation-cap"></i> Курсовая</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Исследование бескрайнего космоса</h1>
+            <p class="hero-subtitle">Откройте тайны Вселенной вместе с нами</p>
+            <a href="#about" class="btn">Узнать больше</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="about" class="section">
+            <h2>Добро пожаловать в мир космических исследований</h2>
+            <div class="content-grid">
+                <div class="text-content">
+                    <p>Космические исследования — это одно из самых захватывающих направлений человеческой деятельности. С тех пор как первый искусственный спутник Земли был запущен в 1957 году, мы прошли огромный путь в изучении космоса.</p>
+                    
+                    <p>Современные технологии позволяют нам заглядывать в самые отдаленные уголки Вселенной, изучать экзопланеты, черные дыры и нейтронные звезды. Каждый новый день приносит открытия, меняющие наше понимание мира.</p>
+                    
+                    <h3>История освоения космоса</h3>
+                    <p>Первый значительный прорыв в космических исследованиях произошел 4 октября 1957 года, когда Советский Союз запустил «Спутник-1». Это событие положило начало космической эре и гонке вооружений между СССР и США.</p>
+                    
+                    <p>12 апреля 1961 года Юрий Гагарин стал первым человеком, побывавшим в космосе. Его полет на корабле «Восток-1» длился 108 минут и совершил один виток вокруг Земли. Это достижение вдохновило миллионы людей по всему миру и показало, что человечество способно преодолевать, казалось бы, непреодолимые границы.</p>
+                </div>
+                
+                <div class="image-content">
+                    <img src="images\ISS-image.jpg" alt="Космическая станция" class="responsive-img">
+                    <div class="image-caption">Международная космическая станция</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section detailed-section">
+            <h2>Будущее космических исследований</h2>
+            
+            <div class="article-content">
+                <div class="article-text">
+                    <p>Современные космические исследования находятся на пороге новой эры. Частные компании, такие как SpaceX, Blue Origin и Virgin Galactic, революционизируют доступ к космосу, значительно снижая стоимость запусков и открывая новые возможности для коммерческого использования космического пространства.</p>
+                    
+                    <p>Одной из главных целей на ближайшие десятилетия является возвращение человека на Луну и создание постоянной лунной базы. Программа NASA «Артемида» планирует высадить первую женщину и следующего мужчину на Луну к 2025 году. Лунная база может стать плацдармом для будущих миссий на Марс и другие планеты Солнечной системы.</p>
+                    
+                    <p>Марс остается главной целью пилотируемых полетов. Технологические вызовы, связанные с полетом на Красную планету, огромны: необходимо защитить астронавтов от космической радиации во время многомесячного перелета, обеспечить жизнеобеспечение на поверхности и организовать возвращение на Землю. Тем не менее, ученые и инженеры по всему миру активно работают над решением этих проблем.</p>
+                    
+                    <div class="image-gallery">
+                        <img src="images\galaxy.jpg" alt="Галактика" class="gallery-img">
+                        <img src="images\Hubble_Space_Telescope.jpg" alt="Космический телескоп" class="gallery-img">
+                        <img src="images\space ship.jpg" alt="Космический корабль" class="gallery-img">
+                        <img src="images\planets.jpg" alt="Планеты" class="gallery-img">
+                                            <style>
+                        .sun-gradient {
+                            width: 200px;
+                            height: 200px;
+                            background: linear-gradient(135deg,
+                                    #f3f2dd 0%,
+                                    #eeefde 20%,
+                                    #c4daef 60%,
+                                    #b6d5f4 100%);
+                            border: 1px solid #ccc;
+                            position: relative;
+                            overflow: hidden;
+                            margin: 0 auto;
+                        }
+
+                        .sun {
+                            position: absolute;
+                            top: -10px;
+                            left: -10px;
+                            width: 55px;
+                            height: 55px;
+                            background-color: #fbf79c;
+                            border-radius: 50%;
+                        }
+
+                        .arches-container {
+                            position: absolute;
+                            bottom: 30px;
+                            left: 0;
+                            width: 100%;
+                            display: flex;
+                            box-sizing: border-box;
+                        }
+
+                        .arch-border {
+                            width: 66px;
+                            height: 120px;
+                            border-radius: 100px 100px 0 0 / 130px 130px 0 0;
+                            border: 7px solid #9c9fa2;
+                            border-bottom: none;
+                            background: transparent;
+                            box-sizing: border-box;
+                        }
+
+                        .circle {
+                            position: absolute;
+                            border-radius: 50%;
+                            background: radial-gradient(circle at 10% 10%, #e3eff9, #75a2f6);
+                            z-index: 10;
+                        }
+
+                        .circle-1 {
+                            top: 155px;
+                            left: -10px;
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .circle-2 {
+                            top: 150px;
+                            left: 40px;
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .circle-3 {
+                            top: 160px;
+                            left: 90px;
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .circle-4 {
+                            top: 150px;
+                            left: 150px;
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .ship-hull {
+                            position: absolute;
+                            width: 95px;
+                            height: 30px;
+                            background-color: #845521;
+                            clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+                            bottom: 30px;
+                            left: 60px;
+                            z-index: 5;
+                        }
+
+                        .mast {
+                            position: absolute;
+                            background-color: #845521;
+                            width: 7px;
+                            height: 82px;
+                            bottom: 60px;
+                            left: 90px;
+                            z-index: 15;
+                        }
+
+                        .sail {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 40px 0 40px 30px;
+                            border-color: transparent transparent transparent #89e8f4;
+                            bottom: 60px;
+                            left: 97px;
+                            z-index: 14
+                        }
+
+                        .flag {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 7px 0 7px 13px;
+                            border-color: transparent transparent transparent #ec1943;
+                            bottom: 137px;
+                            left: 90px;
+                            z-index: 146;
+                        }
+                    </style>
+
+                    <div class="sun-gradient">
+                        <div class="sun"></div>
+                        <div class="arches-container">
+                            <div class="arch-border"></div>
+                            <div class="arch-border"></div>
+                            <div class="arch-border"></div>
+                        </div>
+                        <div class="ship-hull"></div>
+                        <div class="mast"></div>
+                        <div class="sail"></div>
+                        <div class="flag"></div>
+                        <div class="circle circle-1"></div>
+                        <div class="circle circle-2"></div>
+                        <div class="circle circle-3"></div>
+                        <div class="circle circle-4"></div>
+                    </div>
+                    </div>
+                    
+                    <p>Космические телескопы следующего поколения, такие как James Webb Space Telescope, уже начали свою работу, открывая нам Вселенную в невиданных ранее деталях. Эти инструменты позволяют изучать атмосферы экзопланет, искать признаки жизни за пределами Земли и наблюдать за самыми первыми галактиками, сформировавшимися после Большого взрыва.</p>
+                    
+                    <p>Роботизированные миссии продолжают исследовать Солнечную систему. Зонды исследуют атмосферу Венеры, ледяные спутники Юпитера и Сатурна, где под толщей льда могут существовать океаны жидкой воды. Миссия «ЭкзоМарс» ищет признаки жизни на Марсе, а зонд «Паркер» изучает Солнце с беспрецедентно близкого расстояния.</p>
+                    
+                    <p>Космическая экономика становится реальностью. Добыча полезных ископаемых на астероидах, космическое производство в условиях микрогравитации, космический туризм — все эти направления развиваются быстрыми темпами. По оценкам экспертов, к 2040 году космическая экономика может достичь объема в триллионы долларов.</p>
+                    
+                    <p>Международное сотрудничество остается ключевым фактором успеха в космических исследованиях. Международная космическая станция, эксплуатируемая с 1998 года, является ярким примером того, как страны могут работать вместе над общими научными целями. Будущие проекты, такие как лунная орбитальная станция Gateway, также строятся на принципах международного партнерства.</p>
+                    
+                    <h3>Технологии будущего</h3>
+                    <p>Ядерные и электрические ракетные двигатели могут сократить время полета к Марсу с месяцев до недель. Искусственный интеллект помогает анализировать огромные объемы данных, получаемых с космических телескопов и зондов. 3D-печать на орбите может революционизировать строительство космических станций и кораблей.</p>
+                    
+                    <p>Защита планет становится все более актуальной темой. Ученые разрабатывают методы отклонения астероидов, которые могут угрожать Земле. Одновременно идет работа над планетарной защитой — предотвращением занесения земных микроорганизмов на другие небесные тела и наоборот.</p>
+                    
+                    <p>Космические исследования продолжают вдохновлять новые поколения ученых, инженеров и мечтателей. Они заставляют нас задуматься о нашем месте во Вселенной, о будущем человечества и о том, какие технологии нам еще предстоит создать.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features section">
+            <h2>Наши направления исследований</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-satellite"></i>
+                    <h3>Спутниковые технологии</h3>
+                    <p>Разработка и запуск современных спутников для наблюдения Земли и исследований дальнего космоса.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-astronaut"></i>
+                    <h3>Пилотируемые полеты</h3>
+                    <p>Подготовка миссий на Луну, Марс и создание условий для жизни в космосе.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Поиск экзопланет</h3>
+                    <p>Исследование планет за пределами Солнечной системы и поиск признаков жизни.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <div class="logo-circle"></div>
+                        <div class="logo-orbit"></div>
+                        <div class="logo-satellite"></div>
+                        <span class="logo-text">SpaceResearch</span>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p><i class="fas fa-envelope"></i> contact@spaceresearch.com</p>
+                    <p><i class="fas fa-phone"></i> +7 (XXX) XXX-XX-XX</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Быстрые ссылки</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="tasks/task1.html">Задания</a></li>
+                        <li><a href="coursework.html">Курсовая</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpaceResearch. Все права защищены. Сайт создан в учебных целях.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

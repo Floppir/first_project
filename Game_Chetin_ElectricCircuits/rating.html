@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электрические схемы — Рейтинг</title>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="game-page">
+    <div class="game-container">
+        <div class="rating-screen">
+            <p class="top-nav"><a href="../index.html" class="link-home">← На главную страницу</a></p>
+            <h1>⚡ Рейтинг игроков</h1>
+            <div class="last-result" id="lastResult"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Имя</th>
+                        <th>Очки</th>
+                        <th>Уровень</th>
+                        <th>Время (с)</th>
+                    </tr>
+                </thead>
+                <tbody id="ratingBody"></tbody>
+            </table>
+            <a href="index.html" class="btn">Начать игру с начала</a>
+            <p style="margin-top:15px;"><a href="index.html?test=1" class="btn btn-secondary">Режим проверки уровней</a></p>
+        </div>
+    </div>
+
+    <button class="palette-toggle" id="paletteToggle" title="Сменить палитру">🎨</button>
+
+    <script src="js/storage.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(location.search);
+            const name = params.get('name');
+            const score = params.get('score');
+            const level = params.get('level');
+            const time = params.get('time');
+            const reason = params.get('reason');
+
+            const lastBlock = document.getElementById('lastResult');
+            if (name && (score !== null || reason)) {
+                lastBlock.innerHTML = '<strong>Последний результат</strong><br>Имя: ' + (name || '—') +
+                    '<br>Очки: ' + (score || '0') +
+                    '<br>Достигнут уровень: ' + (level || '1') +
+                    '<br>Время: ' + (time || '0') + ' с' +
+                    (reason === 'time' ? '<br>Игра завершена по времени.' : '');
+                lastBlock.style.display = 'block';
+            } else {
+                const last = typeof getLastResult === 'function' ? getLastResult() : null;
+                if (last) {
+                    lastBlock.innerHTML = '<strong>Последний результат</strong><br>Имя: ' + last.name +
+                        '<br>Очки: ' + last.score + '<br>Уровень: ' + last.level + '<br>Время: ' + last.time + ' с';
+                    lastBlock.style.display = 'block';
+                } else {
+                    lastBlock.style.display = 'none';
+                }
+            }
+
+            const list = typeof getRatingList === 'function' ? getRatingList(20) : [];
+            const tbody = document.getElementById('ratingBody');
+            list.forEach((r, i) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + r.name + '</td><td>' + r.score + '</td><td>' + r.level + '</td><td>' + r.time + '</td>';
+                tbody.appendChild(tr);
+            });
+            if (list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">Пока нет записей. Сыграйте игру!</td></tr>';
+            }
+
+            document.getElementById('paletteToggle').addEventListener('click', function () {
+                document.body.classList.toggle('palette-alt');
+            });
+        })();
+    </script>
+</body>
+</html>
