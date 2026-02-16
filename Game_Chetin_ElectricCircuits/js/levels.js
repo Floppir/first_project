@@ -38,7 +38,6 @@ function shuffle(arr) {
     return a;
 }
 
-/** Три разные цепи: разный состав и порядок элементов (roundIndex 0, 1, 2). */
 const LEVEL2_CONFIGS = [
     {
         title: 'Цепь с лампочкой',
