@@ -26,6 +26,7 @@
     <button class="palette-toggle" id="paletteToggle" title="Сменить палитру">🎨</button>
 
     <script src="js/storage.js"></script>
+    <script src="js/palette.js"></script>
     <script src="js/levels.js"></script>
     <script src="js/game.js"></script>
     <script>
@@ -41,9 +42,6 @@
                 }
                 location.href = 'rating.html?name=' + encodeURIComponent(state ? state.playerName : name) +
                     '&score=' + (state ? state.score : 0) + '&level=' + (state ? state.level : 1) + '&time=' + (state ? (180 - state.timeLeft) : 0);
-            });
-            document.getElementById('paletteToggle').addEventListener('click', function () {
-                document.body.classList.toggle('palette-alt');
             });
             window.startGame(name, startLevel);
         })();
